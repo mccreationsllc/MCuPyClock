@@ -17,7 +17,6 @@ gc.collect()
 gc.enable()  # Enables automatic garbage collection
 machine.freq(160000000)  # boosts the speed to max
 
-# Load your known wifi network credentials here
 wifis = {
     'SSID1': 'password1',
     'SSID2': 'password2'
@@ -26,7 +25,7 @@ wifis = {
 # -----------------------------OLED Methods---------------------------------
 
 
-def initialize_screen():
+def initialize_screen():  # Initializes the SSD1306 screen
     global i2c
     global oled
     i2c = machine.I2C(scl=machine.Pin(5), sda=machine.Pin(4))
@@ -34,22 +33,22 @@ def initialize_screen():
     oledclear()
 
 
-def oledprint(x, y):
+def oledprint(x, y):  # Easier method to print pixels
     oled.pixel(x, y, 1)
     oled.show()
 
 
-def oledtext(text, indent, line):
+def oledtext(text, indent, line):  # Easier method to print text
     oled.text(text, indent, line)
     oled.show()
 
 
-def oledclear():
+def oledclear():  # Easier method to clear the screen
     oled.fill(0)
     oled.show()
 
 
-def welcomescreen():
+def welcomescreen():  # Basic startup screen
     oledclear()
     oledtext('----------------', 0, 0)
     oledtext('MC Wifi Clock', 15, 13)
@@ -60,7 +59,7 @@ def welcomescreen():
 # -------------------------------Networking Methods----------------------------
 
 
-def wifi_scan():
+def wifi_scan():  # Scans for available wifi networks and compares to known ones
     global wifi
     networks = wifi.scan()
     available = []
@@ -71,7 +70,7 @@ def wifi_scan():
     return available_networks
 
 
-def initialize_networking():
+def initialize_networking():  # initializes the wifi network
     global wifi
     global ap
     global session_ssid
