@@ -36,14 +36,14 @@ def cleartime():
 def clearday():
     for x in range(128):
         for y in range(12):
-            oled.pixel(x, y + 13, 0)
+            oled.pixel(x, y + 12, 0)
     oled.show()
 
 
 def cleardate():
     for x in range(128):
         for y in range(12):
-            oled.pixel(x, y + 25, 0)
+            oled.pixel(x, y + 24, 0)
     oled.show()
 
 
@@ -58,12 +58,12 @@ def clock():
                 h -= 5
             if h <= 5:  # Sets EST Time from GMT
                 h = 24 - (5 - h)
-            if h > 12:  # adjusts for 12hr time
-                h -= 12
             if h >= 12:
                 meridian = 'pm'
             else:
                 meridian = 'am'
+            if h > 12:  # adjusts for 12hr time
+                h -= 12
             if h == 0:
                 h = 12
 
@@ -85,9 +85,9 @@ def clock():
                 gc.collect()
                 clocktime = clocktime + '*'
             cleartime()
-            oledtext(clocktime, 30, 2)
-            oledtext(days[w], 42, 13)
-            oledtext(date, 18, 25)
+            oledtext(clocktime, 30, 1)
+            oledtext(days[w], 42, 12)
+            oledtext(date, 18, 24)
             if w != starttime[6]:
                 clearday()
                 oledtext(days[w], 42, 13)
@@ -95,7 +95,7 @@ def clock():
                 cleardate()
                 oledtext(date, 18, 25)
             time.sleep(1)
-        except:
+        except OSError:
             clock()
 
 
